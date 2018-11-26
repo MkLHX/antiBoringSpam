@@ -1,0 +1,17 @@
+{
+  "name": "drumt/anti-boring-spam",
+  "authors": [
+    {
+      "name": "MkLHX",
+      "email": "mickael.lehoux@gmail.com"
+    }
+  ],
+  "require": {
+    "ext-imap":"*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
