@@ -74,26 +74,21 @@ class Imap
             rsort($emails);
             // for every email...
             foreach ($emails as $key => $email_number) {
+                //get email headers
+                $overview = imap_fetch_overview($stream, "1:{$email_number}", 0);
 
-                // get information specific to this email
-                $overview = imap_fetch_overview($stream, $email_number, 0);
-                $message = imap_fetchbody($stream, $email_number, 2);
-
-                // output the email header information
-//                $output .= '<div class="toggler ' . ($overview[0]->seen ? 'read' : 'unread') . '">';
-//                $output .= '<span class="subject">' . $overview[0]->subject . '</span> ';
-//                $output .= '<span class="from">' . $overview[0]->from . '</span>';
-//                $output .= '<span class="date">on ' . $overview[0]->date . '</span>';
-//                $output .= '</div>';
-
-                // output the email body
-//                $output .= '<div class="body">' . $message . '</div>';
-                //var_dump($overview[0]);
-
-//                $output[] = [$key => $emails[$key], 'overview' => imap_fetch_overview($stream, $email_number, 0)];
-//                $output[] = ['overview' => $overview[0]];//, 'message' => $message];
+                //get email message all format
+                var_dump('email number',$email_number);
+                $structure = imap_fetchstructure($stream, $email_number);
+                var_dump('structure type',$structure->type);
+                $bodystruc = imap_bodystruct($stream, $email_number,1);
+                var_dump('body struc',$bodystruc);
+                $message = imap_fetchbody($stream, $email_number,1.1);
+                var_dump('message content',$message);
+//                $message = imap_body($stream, $email_number,0);
+                //$message = '';
+                $output[] = ['overview' => $overview[0], 'message' => $message];
             }
-            var_dump(imap_fetchbody($stream, $emails[1], 2));
         }
         imap_close($stream);
         return $output;

@@ -57,6 +57,9 @@ if (isset($_GET['box'])) { //|| isset($_SESSION['box']) && !empty($_SESSION['box
     $imap = new Imap('{imap.free.fr:993/imap/ssl/novalidate-cert}', '{imap.free.fr}');
     $boxContent = [];
     $boxContent = $imap->getBoxContent($_SESSION['box']);
-    var_dump($boxContent);
 }
 
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: /');
+}
